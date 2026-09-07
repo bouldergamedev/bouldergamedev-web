@@ -4,59 +4,63 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout>
 	<main class="relative isolate min-h-dvh overflow-hidden sky">
-		<div class="stars pointer-events-none absolute inset-0"></div>
-		<div class="aurora pointer-events-none absolute inset-x-0 top-0"></div>
-		<div class="grid-fade pointer-events-none absolute inset-0 opacity-40"></div>
-		<div class="grain pointer-events-none absolute inset-0"></div>
-		<div class="scanlines pointer-events-none absolute inset-0"></div>
-		<div class="pointer-events-none absolute inset-0 overflow-hidden">
-			<span class="shooting-star"></span>
-			<span class="shooting-star"></span>
-			<span class="shooting-star"></span>
-		</div>
-		<div class="sun pointer-events-none absolute bottom-[16%] left-1/2"></div>
-		<div class="haze pointer-events-none absolute inset-x-0 bottom-0"></div>
+		<div class="stars pointer-events-none absolute top-0 left-0"></div>
+		<div class="stars-2 pointer-events-none absolute top-0 left-0"></div>
+		<div class="sun pointer-events-none absolute bottom-[28%] left-1/2 -translate-x-1/2"></div>
+		<div class="cloud pointer-events-none top-[14%] left-0 w-4"></div>
+		<div class="cloud cloud-b pointer-events-none top-[22%] left-0 w-4"></div>
+		<div class="cloud cloud-c pointer-events-none top-[10%] left-0 w-4"></div>
 
-		<div class="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-36 pt-16 text-center">
-			<p class="rise font-display text-[0.7rem] font-medium tracking-[0.42em] text-gold/80 uppercase">
-				Boulder, Colorado
+		<div class="relative z-10 flex min-h-dvh flex-col items-center justify-center px-5 pb-40 pt-10 text-center">
+			<p class="font-pixel text-[0.55rem] leading-6 text-gold sm:text-[0.65rem]">
+				WORLD 1 — BOULDER, CO
 			</p>
 
-			<h1 class="rise rise-d1 mt-5 font-display text-[clamp(2.6rem,8vw,6.4rem)] leading-[0.92] font-extrabold tracking-tight text-white">
+			<h1 class="title mt-6 font-sans text-[clamp(3rem,12vw,7.5rem)] leading-[0.85] font-bold tracking-tight text-paper">
 				Boulder
-				<span class="title-shine block bg-clip-text text-transparent">
-					Game Dev
-				</span>
+				<span class="block text-gold">Game Dev</span>
 			</h1>
 
-			<p class="rise rise-d2 mx-auto mt-7 max-w-xl text-base leading-relaxed text-mist/80 sm:text-lg">
-				A community meetup for people who make games — indies, studios, students, and anyone still figuring it out.
+			<p class="mt-6 max-w-md font-sans text-xl leading-snug text-paper/90 sm:text-2xl">
+				A meetup for people who make games.
 			</p>
 
-			<ul class="rise rise-d3 mt-10 flex flex-wrap items-center justify-center gap-2.5">
-				<li class="chip rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
-					Playtests
+			<ul class="mt-10 flex flex-wrap items-center justify-center gap-3 font-pixel text-[0.55rem] text-paper sm:text-[0.62rem]">
+				<li class="menu-item inline-flex items-center gap-2 px-3 py-2">
+					<span class="cursor text-mag">▶</span> PLAYTESTS
 				</li>
-				<li class="chip rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
-					Talks
-				</li>
-				<li class="chip rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
-					Hangouts
-				</li>
+				<li class="menu-item inline-flex px-3 py-2">TALKS</li>
+				<li class="menu-item inline-flex px-3 py-2">HANGOUTS</li>
 			</ul>
 		</div>
 
-		<svg
-			class="pointer-events-none absolute inset-x-0 bottom-0 z-20 w-full"
-			viewBox="0 0 1440 280"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-			preserveAspectRatio="xMidYMax slice"
-		>
-			<path d="M0 280V168L118 92L214 148L318 48L412 118L486 78L580 162L640 128L760 210L820 176L940 248L1020 198L1128 260L1200 220L1320 268L1440 214V280H0Z" fill="#0a0e16" />
-			<path d="M0 280V188L96 128L188 168L280 86L372 142L470 108L560 178L650 150L740 214L860 168L980 236L1088 196L1180 248L1288 210L1440 252V280H0Z" fill="#080c14" />
-			<path d="M0 280V228L160 188L280 236L420 176L560 230L700 198L840 248L980 214L1140 256L1280 228L1440 262V280H0Z" fill="#05070c" />
-		</svg>
+		<div class="pointer-events-none absolute inset-x-0 bottom-0 z-20">
+			<svg
+				class="mountains w-full"
+				viewBox="0 0 240 72"
+				xmlns="http://www.w3.org/2000/svg"
+				aria-hidden="true"
+				preserveAspectRatio="xMidYMax slice"
+			>
+				<path fill="#3c2460" d="M0 72V48h8v-8h8v-8h8V24h8v8h8V16h8v8h8v8h8V24h8v16h8v-8h8v16h8v-8h8v12h8v-8h8v16h8v-8h8v12h8V48h8v12h8V52h8v20H0Z" />
+				<path fill="#24143a" d="M0 72V56h8v-8h8v-4h8V36h8v8h8V32h8v8h8v8h8V40h8v12h8V44h8v12h8V48h8v12h8V52h8v8h8V52h8v12h8V56h8v8h8V60h16v12H0Z" />
+				<path fill="#120c30" d="M0 72V64h16v-4h16V56h16v8h16V52h16v12h16V56h16v8h16V60h16v8h16V64h24v8H0Z" />
+			</svg>
+			<div class="relative ground">
+				<div class="sprite absolute -top-10 left-[12%] h-8 w-8" aria-hidden="true">
+					<svg viewBox="0 0 16 16" width="32" height="32" shape-rendering="crispEdges">
+						<rect x="6" y="1" width="4" height="4" fill="#f4e8c1" />
+						<rect x="5" y="5" width="6" height="5" fill="#ff4d8d" />
+						<rect x="6" y="10" width="2" height="4" fill="#1a1040" />
+						<rect x="9" y="10" width="2" height="4" fill="#1a1040" />
+						<rect x="4" y="6" width="2" height="3" fill="#ffd83d" />
+						<rect x="11" y="6" width="2" height="3" fill="#ffd83d" />
+					</svg>
+				</div>
+			</div>
+			<p class="press bg-ink py-3 text-center font-pixel text-[0.55rem] text-gold sm:text-[0.65rem]">
+				PRESS START
+			</p>
+		</div>
 	</main>
 </Layout>
