@@ -21,8 +21,10 @@ body {
 .sky {
 	background:
 		radial-gradient(ellipse 80% 50% at 50% 100%, #3a1a12 0%, transparent 55%),
-		radial-gradient(ellipse 60% 40% at 70% 85%, #7a3a1c 0%, transparent 50%),
+		radial-gradient(ellipse 60% 40% at 72% 88%, #7a3a1c 0%, transparent 50%),
 		linear-gradient(180deg, #060910 0%, #12182a 38%, #2a2038 62%, #c45a32 86%, #f4c45d 100%);
+	background-size: 100% 100%, 120% 120%, 100% 120%;
+	animation: sky-breathe 18s ease-in-out infinite;
 }
 
 .stars {
@@ -45,16 +47,114 @@ body {
 
 .grid-fade {
 	background-image:
-		linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+		linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
 	background-size: 48px 48px;
 	mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%);
+	animation: grid-drift 28s linear infinite;
 }
 
 .grain {
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 	opacity: 0.12;
 	mix-blend-mode: overlay;
+}
+
+.scanlines {
+	background: repeating-linear-gradient(
+		to bottom,
+		transparent 0,
+		transparent 2px,
+		rgba(0, 0, 0, 0.08) 2px,
+		rgba(0, 0, 0, 0.08) 3px
+	);
+	opacity: 0.35;
+}
+
+.sun {
+	width: min(42vw, 22rem);
+	height: min(42vw, 22rem);
+	border-radius: 50%;
+	background: radial-gradient(circle, #fff6d2 0%, #f4c45d 28%, #ff6b3d 52%, transparent 72%);
+	filter: blur(6px);
+	animation: sun-pulse 9s ease-in-out infinite;
+}
+
+.haze {
+	height: 42%;
+	background:
+		radial-gradient(ellipse 70% 80% at 30% 80%, rgba(255, 180, 120, 0.22), transparent 70%),
+		radial-gradient(ellipse 60% 70% at 70% 90%, rgba(255, 107, 61, 0.18), transparent 65%);
+	animation: haze-drift 16s ease-in-out infinite;
+}
+
+.aurora {
+	height: 55%;
+	background:
+		radial-gradient(ellipse 40% 60% at 20% 30%, rgba(90, 160, 255, 0.12), transparent 70%),
+		radial-gradient(ellipse 35% 50% at 80% 20%, rgba(180, 90, 255, 0.1), transparent 70%);
+	filter: blur(20px);
+	animation: aurora-shift 14s ease-in-out infinite;
+}
+
+.shooting-star {
+	position: absolute;
+	top: 12%;
+	left: -10%;
+	width: 110px;
+	height: 2px;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent);
+	border-radius: 999px;
+	opacity: 0;
+	transform: rotate(-18deg);
+	animation: shoot 7.5s ease-in infinite;
+}
+
+.shooting-star:nth-child(2) {
+	top: 22%;
+	animation-delay: 2.6s;
+	animation-duration: 8.5s;
+}
+
+.shooting-star:nth-child(3) {
+	top: 8%;
+	width: 70px;
+	animation-delay: 5.1s;
+	animation-duration: 6.8s;
+}
+
+.title-shine {
+	background-image: linear-gradient(90deg, #f4c45d 0%, #ff6b3d 35%, #fff1c6 50%, #ff6b3d 65%, #f4c45d 100%);
+	background-size: 220% 100%;
+	animation: shine 7s linear infinite;
+}
+
+.chip {
+	animation: chip-glow 5.5s ease-in-out infinite;
+}
+
+.chip:nth-child(2) {
+	animation-delay: 1.1s;
+}
+
+.chip:nth-child(3) {
+	animation-delay: 2.2s;
+}
+
+.chip:hover {
+	border-color: rgba(244, 196, 93, 0.45);
+	background: rgba(244, 196, 93, 0.12);
+	box-shadow: 0 0 24px rgba(255, 107, 61, 0.18);
+}
+
+@keyframes sky-breathe {
+	0%,
+	100% {
+		background-position: 50% 0%, 50% 50%, 50% 0%;
+	}
+	50% {
+		background-position: 50% 0%, 58% 46%, 50% 8%;
+	}
 }
 
 @keyframes twinkle {
@@ -64,6 +164,88 @@ body {
 	}
 	50% {
 		opacity: 1;
+	}
+}
+
+@keyframes grid-drift {
+	from {
+		background-position: 0 0, 0 0;
+	}
+	to {
+		background-position: 48px 48px, 48px 48px;
+	}
+}
+
+@keyframes sun-pulse {
+	0%,
+	100% {
+		opacity: 0.85;
+		transform: translateX(-50%) scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: translateX(-50%) scale(1.08);
+	}
+}
+
+@keyframes haze-drift {
+	0%,
+	100% {
+		transform: translateX(-4%) scale(1);
+		opacity: 0.85;
+	}
+	50% {
+		transform: translateX(4%) scale(1.05);
+		opacity: 1;
+	}
+}
+
+@keyframes aurora-shift {
+	0%,
+	100% {
+		opacity: 0.55;
+		transform: translateX(-3%);
+	}
+	50% {
+		opacity: 0.95;
+		transform: translateX(4%);
+	}
+}
+
+@keyframes shoot {
+	0% {
+		opacity: 0;
+		transform: translateX(0) rotate(-18deg);
+	}
+	8% {
+		opacity: 1;
+	}
+	22% {
+		opacity: 0;
+		transform: translateX(85vw) rotate(-18deg);
+	}
+	100% {
+		opacity: 0;
+		transform: translateX(85vw) rotate(-18deg);
+	}
+}
+
+@keyframes shine {
+	from {
+		background-position: 0% 50%;
+	}
+	to {
+		background-position: 220% 50%;
+	}
+}
+
+@keyframes chip-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 0 rgba(244, 196, 93, 0);
+	}
+	50% {
+		box-shadow: 0 0 18px rgba(244, 196, 93, 0.16);
 	}
 }
 
@@ -91,6 +273,29 @@ body {
 .rise-d3 {
 	animation-delay: 0.4s;
 }
-.rise-d4 {
-	animation-delay: 0.55s;
+
+@media (prefers-reduced-motion: reduce) {
+	.sky,
+	.stars,
+	.grid-fade,
+	.sun,
+	.haze,
+	.aurora,
+	.shooting-star,
+	.title-shine,
+	.chip,
+	.rise,
+	.rise-d1,
+	.rise-d2,
+	.rise-d3 {
+		animation: none;
+	}
+
+	.rise,
+	.rise-d1,
+	.rise-d2,
+	.rise-d3 {
+		opacity: 1;
+		transform: none;
+	}
 }

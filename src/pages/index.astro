@@ -5,8 +5,17 @@ import Layout from '../layouts/Layout.astro';
 <Layout>
 	<main class="relative isolate min-h-dvh overflow-hidden sky">
 		<div class="stars pointer-events-none absolute inset-0"></div>
+		<div class="aurora pointer-events-none absolute inset-x-0 top-0"></div>
 		<div class="grid-fade pointer-events-none absolute inset-0 opacity-40"></div>
 		<div class="grain pointer-events-none absolute inset-0"></div>
+		<div class="scanlines pointer-events-none absolute inset-0"></div>
+		<div class="pointer-events-none absolute inset-0 overflow-hidden">
+			<span class="shooting-star"></span>
+			<span class="shooting-star"></span>
+			<span class="shooting-star"></span>
+		</div>
+		<div class="sun pointer-events-none absolute bottom-[16%] left-1/2"></div>
+		<div class="haze pointer-events-none absolute inset-x-0 bottom-0"></div>
 
 		<div class="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-36 pt-16 text-center">
 			<p class="rise font-display text-[0.7rem] font-medium tracking-[0.42em] text-gold/80 uppercase">
@@ -15,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
 
 			<h1 class="rise rise-d1 mt-5 font-display text-[clamp(2.6rem,8vw,6.4rem)] leading-[0.92] font-extrabold tracking-tight text-white">
 				Boulder
-				<span class="block bg-linear-to-r from-gold via-ember to-gold bg-clip-text text-transparent">
+				<span class="title-shine block bg-clip-text text-transparent">
 					Game Dev
 				</span>
 			</h1>
@@ -25,13 +34,13 @@ import Layout from '../layouts/Layout.astro';
 			</p>
 
 			<ul class="rise rise-d3 mt-10 flex flex-wrap items-center justify-center gap-2.5">
-				<li class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
+				<li class="chip rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
 					Playtests
 				</li>
-				<li class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
+				<li class="chip rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
 					Talks
 				</li>
-				<li class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
+				<li class="chip rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
 					Hangouts
 				</li>
 			</ul>
