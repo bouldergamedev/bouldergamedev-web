@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createClimber, stepClimber, getLedges, getAnchor, useGrapple, releaseGrapple, jump, ledges, CHECKPOINT, SUMMIT, HEIGHT } from '../src/game/physics.ts';
+import { createClimber, stepClimber, getLedges, getAnchor, useGrapple, releaseGrapple, jump, ledges, REST_PLATFORM, SUMMIT, HEIGHT } from '../src/game/physics.ts';
 
 const dt = 1 / 120;
 
@@ -37,7 +37,7 @@ test('Up jump lifts from a ledge and cannot be repeated in midair', () => {
 	assert.ok(player.vy > vy, 'a second press must not reset upward velocity');
 });
 
-test('progress follows altitude rather than platform order, with a working checkpoint and summit', () => {
+test('progress follows altitude, falls reset the attempt, and the summit is reachable', () => {
 	const player = createClimber();
 	function touchDown(index) {
 		const ledge = getLedges(player.elapsed)[index];
@@ -47,10 +47,12 @@ test('progress follows altitude rather than platform order, with a working check
 	touchDown(3); const lowAltitude = player.altitude;
 	touchDown(2); assert.ok(player.altitude > lowAltitude);
 	assert.ok(player.visited.includes(3) && player.visited.includes(2));
-	assert.equal(touchDown(CHECKPOINT), 'checkpoint');
+	assert.equal(touchDown(REST_PLATFORM), undefined);
 	player.y = HEIGHT + 100; player.grounded = false;
 	assert.equal(stepClimber(player, 0, dt), 'fall');
-	assert.equal(player.platform, CHECKPOINT);
+	assert.equal(player.platform, 0);
+	assert.equal(player.x, createClimber().x); assert.equal(player.y, createClimber().y);
+	assert.equal(player.altitude, 0); assert.deepEqual(player.visited, [0]);
 	assert.equal(touchDown(SUMMIT), 'summit'); assert.ok(player.won);
 });
 
@@ -187,7 +189,7 @@ test('a second press during hook flight does not prematurely launch or jump', ()
 });
 
 test('moving ledges carry riders while resting points remain stationary', () => {
-	for (const index of [0, CHECKPOINT, SUMMIT]) assert.deepEqual(getLedges(0)[index], getLedges(2)[index]);
+	for (const index of [0, REST_PLATFORM, SUMMIT]) assert.deepEqual(getLedges(0)[index], getLedges(2)[index]);
 	const player = createClimber(), platform = getLedges(0)[2];
 	Object.assign(player, { x: platform.x + 25, y: platform.y, platform: 2 });
 	for (let frame = 0; frame < 1800; frame++) {
@@ -222,12 +224,13 @@ test('a moving platform catches a descending climber at the swept top surface', 
 });
 
 test('falling and restarting clear grapple and jump state', () => {
-	for (const checkpoint of [0, 4]) {
+	for (const platform of [0, REST_PLATFORM, 7]) {
 		const player = createClimber();
-		Object.assign(player, { checkpoint, y: HEIGHT + 70, grounded: false, platform: -1, coyote: 0 });
+		Object.assign(player, { visited: [0, platform], facing: -1, y: HEIGHT + 70, grounded: false, platform: -1, coyote: 0 });
 		useGrapple(player); jump(player);
 		assert.equal(stepClimber(player, 0, dt), 'fall');
-		assert.equal(player.platform, checkpoint); assert.equal(player.grapple, null); assert.equal(player.jumpBuffer, 0);
+		assert.equal(player.platform, 0); assert.equal(player.grapple, null); assert.equal(player.jumpBuffer, 0);
+		assert.equal(player.facing, 1); assert.equal(player.x, createClimber().x); assert.equal(player.y, createClimber().y);
 	}
 	assert.equal(createClimber().grapple, null);
 });

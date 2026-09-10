@@ -4,8 +4,8 @@ import { createRenderer } from './render';
 
 const messages: Record<GameEvent, string> = {
 	fired: 'Hook fired 45 degrees forward.', launched: 'Launched with your swing momentum. Space can fire another hook.',
-	checkpoint: 'Checkpoint saved at the central cairn.', summit: 'Summit reached! Nice climb.',
-	fall: 'Back at your checkpoint. Your hook is ready.', latched: `Hook attached. ${help.swinging}`, miss: 'Hook missed. Reposition or jump, then fire again.',
+	summit: 'Great climb! Play again?',
+	fall: 'Back at the starting point. Your hook is ready.', latched: `Hook attached. ${help.swinging}`, miss: 'Hook missed. Reposition or jump, then fire again.',
 };
 export function initGame(root: HTMLElement) {
 	const canvas = root.querySelector('canvas')!, renderer = createRenderer(canvas);

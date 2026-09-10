@@ -1,5 +1,6 @@
 export const WIDTH = 900, HEIGHT = 800, STEP = 1 / 120, HAND_Y = 22;
 const HOOK_SPEED = 900, HOOK_RANGE = 420, GRAVITY = 1050;
+const SPAWN = { x: 170, y: 702 };
 const clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n));
 const course = [
 	[110, 702, 130, 0, 0, 0], [285, 575, 105, 110, .9, 0],
@@ -10,7 +11,7 @@ const course = [
 	[390, 155, 85, 100, 1, 2.4], [735, 190, 90, 0, 0, 0],
 ];
 export const ledges = course.map(([x, y, width, range, speed, phase]) => ({ x, y, width, range, speed, phase }));
-export const CHECKPOINT = 4, SUMMIT = ledges.length - 1;
+export const REST_PLATFORM = 4, SUMMIT = ledges.length - 1;
 const platformX = (index: number, time: number) => {
 	const p = ledges[index];
 	return p.x + Math.sin(time * p.speed + p.phase) * p.range;
@@ -24,11 +25,11 @@ type Grapple = {
 	platform: number; phase: 'flying' | 'swinging'; hookX: number; hookY: number;
 	vx: number; vy: number; distance: number; offsetX: number; offsetY: number; length: number;
 };
-export type GameEvent = 'fired' | 'launched' | 'checkpoint' | 'summit' | 'fall' | 'latched' | 'miss';
+export type GameEvent = 'fired' | 'launched' | 'summit' | 'fall' | 'latched' | 'miss';
 export function createClimber() {
 	return {
-		x: 170, y: 702, vx: 0, vy: 0, facing: 1, grounded: true, platform: 0, elapsed: 0,
-		checkpoint: 0, altitude: 0, visited: [0], won: false, jumpBuffer: 0, coyote: .1,
+		...SPAWN, vx: 0, vy: 0, facing: 1, grounded: true, platform: 0, elapsed: 0,
+		altitude: 0, visited: [0], won: false, jumpBuffer: 0, coyote: .1,
 		grapple: null as Grapple | null, platforms: getLedges(0), previousPlatforms: getLedges(0),
 	};
 }
@@ -65,7 +66,6 @@ function land(p: Climber, index: number): GameEvent | undefined {
 	p.y = ledges[index].y; p.vy = 0; p.grounded = true; p.platform = index;
 	p.altitude = Math.max(p.altitude, ledges[0].y - p.y);
 	if (!p.visited.includes(index)) p.visited.push(index);
-	if (index === CHECKPOINT && p.checkpoint !== CHECKPOINT) { p.checkpoint = CHECKPOINT; return 'checkpoint'; }
 	if (index === SUMMIT) { p.won = true; p.vx = 0; p.grapple = null; return 'summit'; }
 }
 /** Fixed-step physics, with the climber's feet as the position origin. */
@@ -138,9 +138,8 @@ export function stepClimber(p: Climber, direction: number, dt: number, reel = 0)
 		if (landing >= 0) event = land(p, landing) ?? event;
 	}
 	if (p.y > HEIGHT + 60) {
-		const ledge = current[p.checkpoint];
-		p.x = ledge.x + ledge.width / 2; p.y = ledge.y; p.vx = p.vy = p.jumpBuffer = 0; p.grapple = null;
-		p.grounded = true; p.platform = p.checkpoint; p.coyote = .1; event = 'fall';
+		p.x = SPAWN.x; p.y = SPAWN.y; p.vx = p.vy = p.jumpBuffer = p.altitude = 0; p.grapple = null;
+		p.grounded = true; p.platform = 0; p.facing = 1; p.visited = [0]; p.coyote = .1; event = 'fall';
 	}
 	return event;
 }
