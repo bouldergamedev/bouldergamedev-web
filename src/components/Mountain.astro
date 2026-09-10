@@ -10,6 +10,18 @@ import { WIDTH, HEIGHT } from '../game/physics';
 		<canvas id="mountain-game" width={WIDTH} height={HEIGHT} tabindex="0" aria-label={description} aria-describedby="game-instructions">The optional climbing game requires a browser with canvas support.</canvas>
 		<div class="summit-message" hidden><strong>Great climb!</strong><button id="climb-again" type="button">Play again?</button></div>
 	</div>
+	<div class="game-controls" role="group" aria-label="Game controls">
+		<div class="movement-controls">
+			<button type="button" data-action="left" aria-label="Move or swing left">←</button>
+			<button type="button" data-action="right" aria-label="Move or swing right">→</button>
+		</div>
+		<div class="grapple-controls">
+			<button type="button" data-action="up" aria-label="Jump or retract cable">↑ <span>Jump / in</span></button>
+			<button type="button" data-action="hook">Hook / launch</button>
+			<button type="button" data-action="down" aria-label="Extend cable">↓ <span>Cable out</span></button>
+			<button type="button" data-action="release">Release</button>
+		</div>
+	</div>
 	<div class="game-caption">
 		<p id="game-instructions">{help.ready}</p>
 	</div>
