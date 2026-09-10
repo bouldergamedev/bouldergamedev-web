@@ -8,6 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   integrations: [qwikdev()],
+  devToolbar: { enabled: false },
 
   vite: {
     plugins: [tailwindcss()]
