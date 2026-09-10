@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Mountain from '../components/Mountain.astro';
+import { site } from '../site.mjs';
 ---
 
 <Layout>
@@ -10,11 +11,11 @@ import Mountain from '../components/Mountain.astro';
 				<div class="hero-copy">
 					<h1 id="hero-title">Boulder<br />Game Dev</h1>
 					<div class="hero-tagline">
-						<p>A community for game makers in Boulder CO: programmers, artists, designers, storytellers, and the game-curious. All skill levels welcome!</p>
-						<p>For more info join us on <a class="discord-link" href="https://discord.gg/AhvndYnQAG" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+						<p>{site.intro}</p>
+						<p>For more info join us on <a class="discord-link" href={site.discord} target="_blank" rel="noopener noreferrer">Discord</a>.</p>
 					</div>
 					<nav class="hero-actions" aria-label="Community links">
-						<a class="community-link" href="https://linktr.ee/bouldergamedev" target="_blank" rel="noopener noreferrer">linktr.ee/bouldergamedev <span aria-hidden="true">↗</span></a>
+						<a class="community-link" href={site.linktree} target="_blank" rel="noopener noreferrer">{site.linktree.replace('https://', '')} <span aria-hidden="true">↗</span></a>
 					</nav>
 				</div>
 				<Mountain />

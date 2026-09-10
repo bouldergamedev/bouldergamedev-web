@@ -1,20 +1,32 @@
-@import "tailwindcss";
-
-@theme {
-	--font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-	--color-night: #101f25;
-	--color-mist: #e9e5d8;
+@font-face {
+	font-family: "DM Sans Variable";
+	font-style: normal;
+	font-weight: 100 1000;
+	font-display: swap;
+	src: url("@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2") format("woff2");
 }
 
-:root { color-scheme: dark; }
+:root {
+	--font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+	--color-night: #101f25;
+	--color-mist: #e9e5d8;
+	color-scheme: dark;
+	font-family: var(--font-sans);
+	line-height: 1.5;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+h1, p { margin: 0; }
 html { min-width: 320px; min-height: 100%; }
-body { margin: 0; background: var(--color-night); color: var(--color-mist); }
+body { margin: 0; min-height: 100dvh; background: var(--color-night); color: var(--color-mist); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
 button, a { -webkit-tap-highlight-color: transparent; }
-button { cursor: pointer; font: inherit; }
+button { cursor: pointer; font: inherit; color: inherit; border: 0; padding: 0; background: transparent; }
 button, a { transition: color 180ms, background-color 180ms, border-color 180ms; }
 button:focus-visible, a:focus-visible { outline: 2px solid #d9ac7e; outline-offset: 7px; }
 ::selection { background: #d9ac7e; color: #101f25; }
 [hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .site-shell { max-width: 1500px; min-height: 100dvh; margin: auto; padding: 0 64px; display: flex; flex-direction: column; }
 main { display: grid; align-items: center; flex: 1; padding-bottom: 46px; }
 .hero { display: grid; grid-template-columns: .87fr 1.35fr; align-items: center; gap: 0; }
@@ -31,13 +43,14 @@ h1 { margin-top: 29px; font-size: clamp(62px, 6.5vw, 96px); font-weight: 500; li
 .hero-actions span { font-size: 17px; }
 .mountain-experience { min-width: 0; position: relative; }
 .landscape-frame { position: relative; }
-#mountain-game { display: block; width: 100%; height: auto; outline: none; border-radius: 2px; touch-action: pan-y; }
+.landscape-frame img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+#mountain-game { position: absolute; inset: 0; width: 100%; height: 100%; outline: none; border-radius: 2px; touch-action: pan-y; }
 #mountain-game:focus-visible { outline: 1px solid #aeb89c80; outline-offset: 5px; }
 .game-caption { margin: 0 24px; padding-top: 18px; border-top: 1px solid #ffffff12; }
 #game-instructions { font-size: 10px; line-height: 1.6; color: #7f9492; }
 .summit-message { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); width: min(85%, 350px); padding: 30px; background: #101f25ed; border: 1px solid #bdab8533; text-align: center; box-shadow: 0 20px 60px #0003; }
 .summit-message > span { font: 8px monospace; letter-spacing: .14em; color: #d8ae83; }
-.summit-message strong { display: block; font: italic 48px/1.3 "Instrument Serif", Georgia, serif; margin: 12px 0 8px; }
+.summit-message strong { display: block; font: italic 48px/1.3 Georgia, serif; margin: 12px 0 8px; }
 .summit-message p { font-size: 12px; line-height: 1.7; color: #a8b4af; }
 .summit-message button { margin-top: 20px; color: #e1c49e; font-size: 12px; border-bottom: 1px solid #bba07d; padding-bottom: 6px; }
 @media (min-width: 1600px) { .hero { gap: 30px; } }

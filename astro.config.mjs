@@ -1,16 +1,6 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-
-import qwikdev from '@qwikdev/astro';
-
-import tailwindcss from '@tailwindcss/vite';
-
-// https://astro.build/config
+import { site } from './src/site.mjs';
 export default defineConfig({
-  integrations: [qwikdev()],
+  site: site.url,
   devToolbar: { enabled: false },
-
-  vite: {
-    plugins: [tailwindcss()]
-  }
 });

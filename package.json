@@ -6,6 +6,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "check": "astro check",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "dev": "astro dev",
     "build": "astro build",
@@ -13,10 +14,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@builder.io/qwik": "^1.19.2",
-    "@qwikdev/astro": "^0.8.3",
-    "@tailwindcss/vite": "^4.2.2",
-    "astro": "^5.18.1",
-    "tailwindcss": "^4.2.2"
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "astro": "^5.18.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.0"
   }
 }

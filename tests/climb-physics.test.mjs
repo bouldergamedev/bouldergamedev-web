@@ -1,8 +1,19 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createClimber, stepClimber, getLedges, getAnchor, useGrapple, releaseGrapple, jump, ledges, CHECKPOINT, SUMMIT, HEIGHT } from '../src/scripts/climb-physics.ts';
+import { createClimber, stepClimber, getLedges, getAnchor, useGrapple, releaseGrapple, jump, ledges, CHECKPOINT, SUMMIT, HEIGHT } from '../src/game/physics.ts';
 
 const dt = 1 / 120;
+
+test('physics reuses two platform buffers and keeps them synchronized with motion', () => {
+	const player = createClimber(), buffers = new Set([player.platforms, player.previousPlatforms]);
+	const objects = new Set([...player.platforms, ...player.previousPlatforms]);
+	for (let frame = 0; frame < 600; frame++) {
+		stepClimber(player, 0, dt);
+		assert.ok(buffers.has(player.platforms) && buffers.has(player.previousPlatforms));
+		assert.ok(player.platforms.every(platform => objects.has(platform)));
+		if (frame % 60 === 0) assert.deepEqual(player.platforms, getLedges(player.elapsed));
+	}
+});
 
 function belowPlatform(index = 1, offset = 25, facing = 1) {
 	const player = createClimber();

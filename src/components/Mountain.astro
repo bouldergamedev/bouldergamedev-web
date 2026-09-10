@@ -1,15 +1,27 @@
+---
+import landscape from '../assets/landscape.webp';
+import { description, help } from '../game/controls';
+import { WIDTH, HEIGHT } from '../game/physics';
+---
+
 <div class="mountain-experience">
 	<div class="landscape-frame">
-		<canvas id="mountain-game" width="900" height="800" tabindex="0" aria-label="Climb the Flatirons. Left and right arrows or A and D move and swing. Up jumps when not attached. While hanging, hold Up to retract the cable or Down to extend it. Space shoots a hook 45 degrees upward in the direction you face. It latches wherever it hits a platform. Press Space again while attached to launch in your swing direction with your current momentum. S releases the hook. Reach the summit flag. Falls return you to your latest checkpoint." aria-describedby="game-instructions">An illustrated sunset over the Flatirons. The optional climbing game requires a browser with canvas support.</canvas>
+		<img src={landscape.src} width={WIDTH} height={HEIGHT} alt="Pixel-art sunset over Boulder's Flatirons and pine forests." fetchpriority="high" decoding="async" />
+		<canvas id="mountain-game" width={WIDTH} height={HEIGHT} tabindex="0" aria-label={description} aria-describedby="game-instructions">The optional climbing game requires a browser with canvas support.</canvas>
 		<div class="summit-message" hidden><span>THE VIEW WAS WORTH IT.</span><strong>Nice climb.</strong><p>Good things happen one small swing at a time.</p><button id="climb-again" type="button">One more climb <span aria-hidden="true">↗</span></button></div>
 	</div>
 	<div class="game-caption">
-		<p id="game-instructions">← → / A D move · ↑ jump · Space fires 45° forward · Space again to launch.</p>
+		<p id="game-instructions">{help.ready}</p>
 	</div>
 	<p id="game-status" class="sr-only" role="status" aria-live="polite"></p>
 </div>
 
 <script>
-	import { initMountain } from '../scripts/mountain';
-	initMountain();
+	const root = document.querySelector<HTMLElement>('.mountain-experience')!;
+	const observer = new IntersectionObserver(([entry]) => {
+		if (!entry.isIntersecting) return;
+		observer.disconnect();
+		import('../game/game').then(({ initGame }) => initGame(root));
+	});
+	observer.observe(root);
 </script>
