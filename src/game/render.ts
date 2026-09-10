@@ -1,4 +1,4 @@
-import { WIDTH, HEIGHT, HAND_Y, CHECKPOINT, SUMMIT, getLedges, type Climber } from './physics';
+import { WIDTH, HEIGHT, HAND_Y, REST_PLATFORM, SUMMIT, getLedges, type Climber } from './physics';
 
 function sprite(width: number, height: number, paint: (ctx: CanvasRenderingContext2D) => void) {
 	const canvas = document.createElement('canvas');
@@ -27,7 +27,7 @@ export function createRenderer(canvas: HTMLCanvasElement) {
 	const climbers = [climberSprite(0), climberSprite(-3), climberSprite(3), climberSprite(0, true)];
 	const platforms = getLedges(0).map((p, i) => sprite(p.width + 10, 20, c => {
 		c.fillStyle = '#0a2c3a'; c.fillRect(0, 0, p.width + 10, 10); c.fillRect(15, 10, p.width - 20, 10);
-		c.fillStyle = i === 0 || i === CHECKPOINT ? '#8bbd81' : '#ffd092'; c.fillRect(5, 0, p.width, 5);
+		c.fillStyle = i === 0 || i === REST_PLATFORM ? '#8bbd81' : '#ffd092'; c.fillRect(5, 0, p.width, 5);
 		c.fillStyle = '#ad7848'; c.fillRect(15, 5, p.width - 20, 5);
 	}));
 	return {
@@ -43,15 +43,15 @@ export function createRenderer(canvas: HTMLCanvasElement) {
 			if (!reducedMotion) for (const trail of trails) {
 				getLedges(Math.max(0, p.elapsed - trail.age), trail.positions);
 				ctx.globalAlpha = .1 * (1 - trail.age); ctx.fillStyle = '#ffd092';
-				trail.positions.forEach((ledge, i) => { if (i !== 0 && i !== CHECKPOINT && i !== SUMMIT) ctx.fillRect(Math.round(ledge.x), ledge.y, ledge.width, 3); });
+				trail.positions.forEach((ledge, i) => { if (i !== 0 && i !== REST_PLATFORM && i !== SUMMIT) ctx.fillRect(Math.round(ledge.x), ledge.y, ledge.width, 3); });
 			}
 			ctx.globalAlpha = 1;
 			p.platforms.forEach((ledge, i) => {
 				ctx.drawImage(platforms[i], Math.round(ledge.x) - 5, ledge.y);
 				if (i) { ctx.globalAlpha = .55; ctx.fillStyle = p.visited.includes(i) ? '#8fd082' : '#fff1af'; ctx.fillRect(ledge.x + 8, ledge.y - 2, ledge.width - 16, 3); ctx.globalAlpha = 1; }
 			});
-			const checkpoint = p.platforms[CHECKPOINT], summit = p.platforms[SUMMIT];
-			for (let i = 0; i < 3; i++) { ctx.fillStyle = i % 2 ? '#fff0bc' : '#b1bd8e'; ctx.fillRect(checkpoint.x + checkpoint.width - 35 + i * 5, checkpoint.y - 5 - i * 5, 25 - i * 10, 5); }
+			const rest = p.platforms[REST_PLATFORM], summit = p.platforms[SUMMIT];
+			for (let i = 0; i < 3; i++) { ctx.fillStyle = i % 2 ? '#fff0bc' : '#b1bd8e'; ctx.fillRect(rest.x + rest.width - 35 + i * 5, rest.y - 5 - i * 5, 25 - i * 10, 5); }
 			ctx.fillStyle = '#fff0c9'; ctx.fillRect(summit.x + summit.width - 25, summit.y - 45, 3, 45);
 			ctx.fillStyle = '#ff5835'; ctx.fillRect(summit.x + summit.width - 22, summit.y - 45 + (reducedMotion ? 0 : Math.round(Math.sin(p.elapsed * 3)) * 5), 25, 15);
 			const hook = p.grapple;

@@ -8,7 +8,7 @@ import { WIDTH, HEIGHT } from '../game/physics';
 	<div class="landscape-frame">
 		<img src={landscape.src} width={WIDTH} height={HEIGHT} alt="Pixel-art sunset over Boulder's Flatirons and pine forests." fetchpriority="high" decoding="async" />
 		<canvas id="mountain-game" width={WIDTH} height={HEIGHT} tabindex="0" aria-label={description} aria-describedby="game-instructions">The optional climbing game requires a browser with canvas support.</canvas>
-		<div class="summit-message" hidden><span>THE VIEW WAS WORTH IT.</span><strong>Nice climb.</strong><p>Good things happen one small swing at a time.</p><button id="climb-again" type="button">One more climb <span aria-hidden="true">↗</span></button></div>
+		<div class="summit-message" hidden><strong>Great climb!</strong><button id="climb-again" type="button">Play again?</button></div>
 	</div>
 	<div class="game-caption">
 		<p id="game-instructions">{help.ready}</p>
