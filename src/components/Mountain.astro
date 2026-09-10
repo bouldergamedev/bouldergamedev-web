@@ -12,15 +12,12 @@ import { WIDTH, HEIGHT } from '../game/physics';
 	</div>
 	<div class="game-controls" role="group" aria-label="Game controls">
 		<div class="movement-controls">
+			<button type="button" data-action="up" aria-label="Jump or retract cable">↑</button>
 			<button type="button" data-action="left" aria-label="Move or swing left">←</button>
+			<button type="button" data-action="down" aria-label="Extend cable">↓</button>
 			<button type="button" data-action="right" aria-label="Move or swing right">→</button>
 		</div>
-		<div class="grapple-controls">
-			<button type="button" data-action="up" aria-label="Jump or retract cable">↑ <span>Jump / in</span></button>
-			<button type="button" data-action="hook">Hook / launch</button>
-			<button type="button" data-action="down" aria-label="Extend cable">↓ <span>Cable out</span></button>
-			<button type="button" data-action="release">Release</button>
-		</div>
+		<button class="game-action" type="button" data-action="hook" aria-label="A: fire hook or launch">A</button>
 	</div>
 	<div class="game-caption">
 		<p id="game-instructions">{help.ready}</p>

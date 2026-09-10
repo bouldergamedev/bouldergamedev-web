@@ -47,11 +47,15 @@ h1 { margin-top: 29px; font-size: clamp(62px, 6.5vw, 96px); font-weight: 500; li
 #mountain-game { position: absolute; inset: 0; width: 100%; height: 100%; outline: none; border-radius: 2px; touch-action: pan-y; }
 #mountain-game:focus-visible { outline: 1px solid #aeb89c80; outline-offset: 5px; }
 .game-caption { margin: 0 24px; padding-top: 18px; border-top: 1px solid #ffffff12; }
-.game-controls { display: none; gap: 16px; align-items: center; margin: 16px; }
-.movement-controls { display: flex; gap: 8px; }
-.grapple-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1; }
+.game-controls { display: none; gap: 16px; align-items: center; justify-content: space-between; margin: 16px; }
+.movement-controls { display: grid; grid-template-areas: ". up ." "left . right" ". down ."; grid-template-columns: repeat(3, 48px); gap: 6px; }
+.movement-controls [data-action="up"] { grid-area: up; }
+.movement-controls [data-action="left"] { grid-area: left; }
+.movement-controls [data-action="down"] { grid-area: down; }
+.movement-controls [data-action="right"] { grid-area: right; }
 .game-controls button { min-width: 44px; min-height: 48px; padding: 8px; border: 1px solid #bba07d66; border-radius: 8px; background: #e1c49e0d; color: #e1c49e; font-size: 11px; touch-action: none; user-select: none; -webkit-user-select: none; }
 .movement-controls button { font-size: 24px; }
+.game-controls .game-action { width: 64px; height: 64px; border-radius: 50%; font-size: 24px; font-weight: 600; }
 .game-controls button:active, .game-controls button.is-held { background: #e1c49e33; border-color: #e1c49e; }
 @media (max-width: 720px), (pointer: coarse) { .game-controls { display: flex; } }
 #game-instructions { font-size: 10px; line-height: 1.6; color: #7f9492; }
