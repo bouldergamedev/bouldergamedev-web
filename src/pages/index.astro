@@ -1,72 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Mountain from '../components/Mountain.astro';
+import { site } from '../site.mjs';
 ---
 
 <Layout>
-	<main class="relative isolate min-h-dvh overflow-hidden sky">
-		<div class="stars pointer-events-none absolute inset-0"></div>
-		<div class="grid-fade pointer-events-none absolute inset-0 opacity-40"></div>
-		<div class="grain pointer-events-none absolute inset-0"></div>
-
-		<div class="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-36 pt-16 text-center">
-			<p class="rise font-display text-[0.7rem] font-medium tracking-[0.42em] text-gold/80 uppercase">
-				Boulder, Colorado
-			</p>
-
-			<h1 class="rise rise-d1 mt-5 font-display text-[clamp(2.6rem,8vw,6.4rem)] leading-[0.92] font-extrabold tracking-tight text-white">
-				Boulder
-				<span class="block bg-linear-to-r from-gold via-ember to-gold bg-clip-text text-transparent">
-					Game Dev
-				</span>
-			</h1>
-
-			<p class="rise rise-d2 mx-auto mt-7 max-w-xl text-base leading-relaxed text-mist/80 sm:text-lg">
-				A community meetup for people who make games — indies, studios, students, and anyone still figuring it out.
-			</p>
-
-			<ul class="rise rise-d3 mt-10 flex flex-wrap items-center justify-center gap-2.5">
-				<li class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
-					Playtests
-				</li>
-				<li class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
-					Talks
-				</li>
-				<li class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-mist/90 backdrop-blur-sm">
-					Hangouts
-				</li>
-			</ul>
-
-			<nav class="rise rise-d4 mt-8 flex flex-wrap items-center justify-center gap-5 text-sm text-gold/90">
-				<a
-					class="underline decoration-gold/40 underline-offset-4 hover:text-gold"
-					href="https://github.com/bouldergamedev"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					GitHub
-				</a>
-				<a
-					class="underline decoration-gold/40 underline-offset-4 hover:text-gold"
-					href="https://linktr.ee/bouldergamedev"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Linktree
-				</a>
-			</nav>
-		</div>
-
-		<svg
-			class="pointer-events-none absolute inset-x-0 bottom-0 z-20 w-full"
-			viewBox="0 0 1440 280"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-			preserveAspectRatio="xMidYMax slice"
-		>
-			<path d="M0 280V168L118 92L214 148L318 48L412 118L486 78L580 162L640 128L760 210L820 176L940 248L1020 198L1128 260L1200 220L1320 268L1440 214V280H0Z" fill="#0a0e16" />
-			<path d="M0 280V188L96 128L188 168L280 86L372 142L470 108L560 178L650 150L740 214L860 168L980 236L1088 196L1180 248L1288 210L1440 252V280H0Z" fill="#080c14" />
-			<path d="M0 280V228L160 188L280 236L420 176L560 230L700 198L840 248L980 214L1140 256L1280 228L1440 262V280H0Z" fill="#05070c" />
-		</svg>
-	</main>
+	<div class="site-shell">
+		<main>
+			<section class="hero" aria-labelledby="hero-title">
+				<div class="hero-copy">
+					<h1 id="hero-title">Boulder<br />Game Dev</h1>
+					<div class="hero-tagline">
+						<p>{site.intro}</p>
+						<p>For more info join us on <a class="discord-link" href={site.discord} target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+					</div>
+					<nav class="hero-actions" aria-label="Community links">
+						<a class="community-link" href={site.linktree} target="_blank" rel="noopener noreferrer">{site.linktree.replace('https://', '')} <span aria-hidden="true">↗</span></a>
+					</nav>
+				</div>
+				<Mountain />
+			</section>
+		</main>
+	</div>
 </Layout>
